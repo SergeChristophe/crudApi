@@ -1,69 +1,43 @@
-Symfony Standard Edition
-========================
+# Symfony Simple CRUD RESTFull API
+Welcome to this little API Rest achieve with Symfony 2.
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+### Requirements
+- PHP 7.0
+- PDO-MYSQL PHP extension enabled
+- and the [usual Symfony application requirements.](https://symfony.com/doc/2.8/reference/requirements.html "usual Symfony application requirements.")
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+### Installation
+Execute this command to install the project:
+> $ git clone https://github.com/SergeChristophe/crudApi.git
 
-What's inside?
---------------
+In the project directory:
+> $ composer install
 
-The Symfony Standard Edition is configured with the following defaults:
+Change the parameters in *app/config/parameters.yml* as you want.
 
-  * An AppBundle you can use to start coding;
+Execute these commands.
+> $ php app/console doctrine:database:create
+$ php app/console doctrine:schema:update --force
 
-  * Twig as the only configured template engine;
+Create an user
+> $ php app/console fos:user:create
 
-  * Doctrine ORM/DBAL;
+Fill in the *Post* table
+> $ php app/console doctrine:fixtures:load
 
-  * Swiftmailer;
+And launch the server:
+> $ php app/console server:run
 
-  * Annotations enabled for everything.
-
-It comes pre-configured with the following bundles:
-
-  * **FrameworkBundle** - The core Symfony framework bundle
-
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
-
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][13] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **DebugBundle** (in dev/test env) - Adds Debug and VarDumper component
-    integration
-
-All libraries and bundles included in the Symfony Standard Edition are
-released under the MIT or BSD license.
-
-Enjoy!
-
-[1]:  https://symfony.com/doc/2.8/setup.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/2.8/doctrine.html
-[8]:  https://symfony.com/doc/2.8/templating.html
-[9]:  https://symfony.com/doc/2.8/security.html
-[10]: https://symfony.com/doc/2.8/email.html
-[11]: https://symfony.com/doc/2.8/logging.html
-[12]: https://symfony.com/doc/2.8/assetic/asset_management.html
-[13]: https://symfony.com/doc/current/bundles/SensioGeneratorBundle/index.html
+### Operation
+To make queries in the API you have to authenticate:
+- install and run [Postman](https://www.getpostman.com/ "Postman")
+- make a *POST* request with URL: *localhost:8000/api/login_check* and body parameter:
+> username: your_username
+password: your_password
+- It will generate a Token like this:
+> {
+    "token": "eyJhbGciOiJSUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJ1c2VyIiwiaWF0IjoxNTE2ODYwMjQyLCJleHAiOjE1MTY4NzgyNDJ9.BtKm6AT4XVcQKyh_jq8u7WrZp5BYGVXWnO8Kn_9y2teG4VZ_iagjyD-jPlT6BDia--FfzAqQ1fZ4C5My9e6ZPqHBVfkwC-FZ32X2KBrbZXkwhzSQaMqpJzek7UjhizfchaTezR-H6iMABGxQ0HWSYwgvzKRYWqNuZQiJpyCPSSKBB9nNxmiKwlLF8XUIvKX1zu-aVLVecVsSxn2KAqSKs7RuBblAgz1pdlAl0tHyzy74JBbNqpn6khAsNjuz42OWETOlH-7aY1rpi_2yHwU5tTHPya2pdZ8dn8wlXTAB9IQWuuQ6_VsXtBEZ7A3regvHMYDq8MU-qXrshlcHYY1qNd7qfUwZq79DOcwVn6j8z_dYrac7ZqmRavvNFVUF80oeQs7zYQEl8nxwCrFxy63ym3IkAdrU10PQGlosHKMFw77pqenbMXfH5YZT7LGnJsL1IduewhvmeOVN3wmIRRPt7G0UAVK_OvU2JsY6VRbYvxuskFQaef9E7u7iWEgEXdb5htDHaig-a-VnribIVr9J-lyUIVZhb1wxsXlKwPMT-INl1BrQhM4Cg3b5pY0y2kmniTSRKIr0qM8fakdK0b0mZ0o0Tnol3zcwl-42zsURPj1bDSpao5FC_bvZXnWJ7ZAA4bL98oasU-0JmQ86OmY2eW8z_5NnLzUW5MivyNe5yT0"
+}
+- List all *Post* on *localhost/api/post* with *GET* method an headers parameter:
+> Authorization: Bearer {token}
+- All method on *localhost:8000/api/doc*
