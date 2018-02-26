@@ -19,11 +19,11 @@ Execute these commands.
 > $ php app/console doctrine:database:create
 $ php app/console doctrine:schema:update --force
 
-Create an user
-> $ php app/console fos:user:create
-
 Fill in the *Post* table
 > $ php app/console doctrine:fixtures:load
+
+Create an user
+> $ php app/console fos:user:create
 
 And launch the server:
 > $ php app/console server:run
